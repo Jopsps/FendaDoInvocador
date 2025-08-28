@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Fenda do Invocador – Campeões</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="fi-header">
+    <div class="fi-header-inner">
+      <a class="fi-logo" href="/">Fenda do Invocador</a>
+      <nav class="fi-nav">
+        <a href="/">Início</a>
+        <a class="active" href="/champions">Campeões</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="champions-page">
+    <section class="champions-hero">
+      <h1><span class="highlight">Campeões</span> de Runeterra</h1>
+      <p>Navegue por todos os campeões e admire suas splash arts.</p>
+
+      <div class="search-card champions-search">
+        <div class="input-container">
+          <label for="championSearch">Procurar Campeão</label>
+          <input type="text" id="championSearch" placeholder="Ex.: Ahri, Yasuo, Lux...">
+        </div>
+      </div>
+
+      {% if error %}
+        <p class="error-message">Erro: {{ error }}</p>
+      {% endif %}
+    </section>
+
+    {% if champions %}
+      <section class="champions-grid" id="championsGrid">
+        {% for c in champions %}
+          <a href="/champion/{{ c.id }}" class="champ-card" data-name="{{ c.name | lower }}">
+            <div class="champ-img-wrap">
+              <img src="{{ c.splash }}" alt="Splash de {{ c.name }}" class="champ-splash" loading="lazy">
+              <div class="champ-name-badge">{{ c.name }}</div>
+            </div>
+          </a>
+        {% endfor %}
+      </section>
+    {% endif %}
+  </main>
+
+  <script>
+    const input = document.getElementById('championSearch');
+    const grid = document.getElementById('championsGrid');
+
+    if (input && grid) {
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        const cards = grid.querySelectorAll('.champ-card');
+        cards.forEach(card => {
+          const name = card.getAttribute('data-name');
+          card.style.display = name.includes(q) ? '' : 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>

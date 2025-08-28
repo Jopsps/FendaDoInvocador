@@ -1,0 +1,15 @@
+# Ignorar ambiente virtual
+venv/
+
+# Ignorar cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar arquivos sensíveis
+.env
+instance/
+
+# Ignorar arquivos do sistema
+.DS_Store

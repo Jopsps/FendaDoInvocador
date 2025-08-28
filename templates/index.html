@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Fenda do Invocador</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="fi-header">
+    <div class="fi-header-inner">
+      <a class="fi-logo" href="/">Fenda do Invocador</a>
+      <nav class="fi-nav">
+        <a class="active" href="/">Início</a>
+        <a href="/champions">Campeões</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero-container">
+    <div class="hero-text">
+      <h1>Conquiste a<br><span class="highlight">Fenda do Invocador</span></h1>
+      <p>Analise suas estatísticas, domine seus campeões favoritos e alcance o próximo nível no League of Legends!</p>
+    </div>
+    
+    <!-- FORM DE BUSCA -->
+    <form method="POST" class="search-card">
+      <h2>Buscar Invocador</h2>
+      <div class="input-container">
+        <label for="summonerName">Nome do Invocador</label>
+        <input type="text" name="summonerName" id="summonerName" placeholder="Digite seu nome de invocador" required>
+      </div>
+      <div class="input-container">
+        <label for="tagLine">TAG</label>
+        <input type="text" name="tagLine" id="tagLine" placeholder="BR1" value="BR1">
+      </div>
+      <div class="input-container">
+        <label for="gameCount">Últimas Partidas</label>
+        <select name="gameCount" id="gameCount">
+          <option value="5">5 partidas</option>
+          <option value="10" selected>10 partidas</option>
+          <option value="20">20 partidas</option>
+        </select>
+      </div>
+      <button type="submit">Buscar Invocador</button>
+      {% if error %}
+        <p class="error-message">Erro: {{ error }}</p>
+      {% endif %}
+    </form>
+  </div>
+
+  <!-- RESULTADOS -->
+  {% if matches %}
+    <div class="matches-container">
+      <h2>Resultados de {{ summoner_name }}#{{ tag_line }}</h2>
+      {% for match in matches %}
+        <div class="match-item {% if match.win %}victory{% else %}defeat{% endif %}">
+          <div class="match-result {% if match.win %}victory{% else %}defeat{% endif %}">
+            {{ "Vitória" if match.win else "Derrota" }}
+          </div>
+
+          <!-- Campeão -->
+          <div class="match-champion">
+            <img src="https://ddragon.leagueoflegends.com/cdn/14.15.1/img/champion/{{ match.champion }}.png" 
+                 alt="{{ match.champion }}" class="champion-image">
+            <span class="champion-name">{{ match.champion }}</span>
+          </div>
+
+          <!-- KDA -->
+          <div class="match-kda">
+            <span class="kda-kills">{{ match.kills }}</span> /
+            <span class="kda-deaths">{{ match.deaths }}</span> /
+            <span class="kda-assists">{{ match.assists }}</span>
+          </div>
+
+          <!-- Stats -->
+          <div class="match-stats">
+            <div class="match-duration">{{ match.duration }} min</div>
+            <div class="match-mode">{{ match.mode }}</div>
+          </div>
+
+          <!-- Summoner Spells -->
+          <div class="match-spells">
+            <img src="https://ddragon.leagueoflegends.com/cdn/14.15.1/img/spell/{{ match.spell1 }}.png" 
+                 alt="Spell1" class="spell-icon">
+            <img src="https://ddragon.leagueoflegends.com/cdn/14.15.1/img/spell/{{ match.spell2 }}.png" 
+                 alt="Spell2" class="spell-icon">
+          </div>
+
+          <!-- Items -->
+          <div class="match-items">
+            {% for i in range(0,7) %}
+              {% set item = match['item' ~ i] %}
+              {% if item != 0 %}
+                <img src="https://ddragon.leagueoflegends.com/cdn/14.15.1/img/item/{{ item }}.png" 
+                     alt="Item {{ i }}" class="item-icon">
+              {% else %}
+                <div class="item-slot"></div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</body>
+</html>

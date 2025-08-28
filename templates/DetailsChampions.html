@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ champion.name }} – Fenda do Invocador</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="fi-header">
+    <div class="fi-header-inner">
+      <a class="fi-logo" href="/">Fenda do Invocador</a>
+      <nav class="fi-nav">
+        <a href="/">Início</a>
+        <a href="/champions" class="active">Campeões</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="champion-detail-page">
+    <!-- HERO / Splash -->
+    <section class="champion-hero">
+      <div class="champion-splash-wrap">
+        <img src="{{ champion.splash }}" alt="{{ champion.name }}" class="champion-splash-img">
+        <div class="champion-title-overlay">
+          <h1>{{ champion.name }}</h1>
+          <h2>{{ champion.title }}</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- LORE -->
+    <section class="champion-lore">
+      <h2>História</h2>
+      <p>{{ champion.lore }}</p>
+    </section>
+
+    <!-- HABILIDADES -->
+    <section class="champion-spells">
+      <h2>Habilidades</h2>
+
+      <!-- Passiva -->
+      <div class="spell-item passive">
+        <img src="{{ champion.passive.icon }}" alt="{{ champion.passive.name }}" class="spell-icon">
+        <div class="spell-info">
+          <h3>Passiva: {{ champion.passive.name }}</h3>
+          <p>{{ champion.passive.description }}</p>
+        </div>
+      </div>
+
+      <!-- Q/W/E/R -->
+      {% for spell in champion.spells %}
+      <div class="spell-item">
+        <img src="{{ spell.icon }}" alt="{{ spell.name }}" class="spell-icon">
+        <div class="spell-info">
+          <h3>{{ spell.name }}</h3>
+          <p>{{ spell.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+  </main>
+</body>
+</html>
