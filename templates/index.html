@@ -25,7 +25,7 @@
       <h1>Conquiste a<br><span class="highlight">Fenda do Invocador</span></h1>
       <p>Analise suas estatísticas, domine seus campeões favoritos e alcance o próximo nível no League of Legends!</p>
     </div>
-    
+
     <!-- FORM DE BUSCA -->
     <form method="POST" class="search-card">
       <h2>Buscar Invocador</h2>
@@ -62,27 +62,23 @@
             {{ "Vitória" if match.win else "Derrota" }}
           </div>
 
-          <!-- Campeão -->
           <div class="match-champion">
             <img src="https://ddragon.leagueoflegends.com/cdn/14.15.1/img/champion/{{ match.champion }}.png" 
                  alt="{{ match.champion }}" class="champion-image">
             <span class="champion-name">{{ match.champion }}</span>
           </div>
 
-          <!-- KDA -->
           <div class="match-kda">
             <span class="kda-kills">{{ match.kills }}</span> /
             <span class="kda-deaths">{{ match.deaths }}</span> /
             <span class="kda-assists">{{ match.assists }}</span>
           </div>
 
-          <!-- Stats -->
           <div class="match-stats">
             <div class="match-duration">{{ match.duration }} min</div>
             <div class="match-mode">{{ match.mode }}</div>
           </div>
 
-          <!-- Summoner Spells -->
           <div class="match-spells">
             <img src="https://ddragon.leagueoflegends.com/cdn/14.15.1/img/spell/{{ match.spell1 }}.png" 
                  alt="Spell1" class="spell-icon">
@@ -90,7 +86,6 @@
                  alt="Spell2" class="spell-icon">
           </div>
 
-          <!-- Items -->
           <div class="match-items">
             {% for i in range(0,7) %}
               {% set item = match['item' ~ i] %}

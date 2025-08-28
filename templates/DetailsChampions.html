@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="fi-header">
     <div class="fi-header-inner">
       <a class="fi-logo" href="/">Fenda do Invocador</a>
@@ -20,7 +19,6 @@
   </header>
 
   <main class="champion-detail-page">
-    <!-- HERO / Splash -->
     <section class="champion-hero">
       <div class="champion-splash-wrap">
         <img src="{{ champion.splash }}" alt="{{ champion.name }}" class="champion-splash-img">
@@ -31,17 +29,14 @@
       </div>
     </section>
 
-    <!-- LORE -->
     <section class="champion-lore">
       <h2>História</h2>
       <p>{{ champion.lore }}</p>
     </section>
 
-    <!-- HABILIDADES -->
     <section class="champion-spells">
       <h2>Habilidades</h2>
 
-      <!-- Passiva -->
       <div class="spell-item passive">
         <img src="{{ champion.passive.icon }}" alt="{{ champion.passive.name }}" class="spell-icon">
         <div class="spell-info">
@@ -50,7 +45,6 @@
         </div>
       </div>
 
-      <!-- Q/W/E/R -->
       {% for spell in champion.spells %}
       <div class="spell-item">
         <img src="{{ spell.icon }}" alt="{{ spell.name }}" class="spell-icon">

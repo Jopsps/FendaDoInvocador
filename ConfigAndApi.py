@@ -1,7 +1,7 @@
 import os
 import requests
 
-API_KEY = os.getenv("RIOT_API_KEY", "XXX")
+API_KEY = os.getenv("RIOT_API_KEY", "xxx")
 REGION = "americas"
 PLATFORM = "br1"
 
