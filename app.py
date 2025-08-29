@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
 from ConfigAndApi import get_puuid, get_match_history, get_champions, get_champion_details
 
 app = Flask(__name__)
@@ -45,6 +45,15 @@ def champion_detail(champ_id):
         return render_template("DetailsChampions.html", champion=champ_data)
     except Exception as e:
         return f"Erro ao carregar o campeão: {str(e)}", 404
+
+@app.route('/riot.txt')
+def riot_txt():
+    try:
+        with open("riot.txt", "r", encoding="utf-8") as f:
+            conteudo = f.read()
+        return Response(conteudo, mimetype="text/plain")
+    except FileNotFoundError:
+        return Response("Arquivo riot.txt não encontrado", status=404, mimetype="text/plain")
 
 if __name__ == "__main__":
     app.run(debug=True)
