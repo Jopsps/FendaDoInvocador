@@ -21,11 +21,21 @@
   <main class="champion-detail-page">
     <section class="champion-hero">
       <div class="champion-splash-wrap">
-        <img src="{{ champion.splash }}" alt="{{ champion.name }}" class="champion-splash-img">
+        <button class="splash-nav left" onclick="changeSkin(-1)">&#10094;</button>
+        <img id="championSplash" src="{{ champion.skins[0].splash }}" alt="{{ champion.name }}" class="champion-splash-img">
+        <button class="splash-nav right" onclick="changeSkin(1)">&#10095;</button>
+
         <div class="champion-title-overlay">
           <h1>{{ champion.name }}</h1>
-          <h2>{{ champion.title }}</h2>
+          <h2 id="skinName">{{ champion.skins[0].name }}</h2>
         </div>
+      </div>
+
+      <!-- Indicadores (bolinhas) -->
+      <div class="skin-indicators" id="skinIndicators">
+        {% for skin in champion.skins %}
+          <span class="indicator {% if loop.index0 == 0 %}active{% endif %}" onclick="goToSkin({{ loop.index0 }})"></span>
+        {% endfor %}
       </div>
     </section>
 
@@ -56,5 +66,31 @@
       {% endfor %}
     </section>
   </main>
+
+<script>
+  const champSkins = {{ champion.skins|tojson }};
+  let currentSkin = 0;
+
+  function updateSkin() {
+    document.getElementById("championSplash").src = champSkins[currentSkin].splash;
+    document.getElementById("skinName").textContent = champSkins[currentSkin].name;
+
+    // Atualiza indicadores
+    const indicators = document.querySelectorAll(".indicator");
+    indicators.forEach((ind, i) => {
+      ind.classList.toggle("active", i === currentSkin);
+    });
+  }
+
+  function changeSkin(dir) {
+    currentSkin = (currentSkin + dir + champSkins.length) % champSkins.length;
+    updateSkin();
+  }
+
+  function goToSkin(index) {
+    currentSkin = index;
+    updateSkin();
+  }
+</script>
 </body>
 </html>

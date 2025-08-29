@@ -290,6 +290,73 @@ button:hover { transform:translateY(-2px); box-shadow:0 0 15px rgba(200,170,110,
   color: #f0e6d2;
   line-height: 1.4;
 }
+/* ===== NAVEGAÇÃO DE SKINS ===== */
+/* ===== NAVEGAÇÃO DE SKINS REFINADA ===== */
+.splash-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(200,170,110,0.15); /* mais transparente */
+  border: 2px solid rgba(200,170,110,0.25);
+  color: rgba(200,170,110,0.25);
+  font-size: 2rem; /* menor */
+  font-weight: bold;
+  width: 48px; /* largura fixa */
+  height: 48px; /* altura fixa */
+  line-height: 42px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50%; /* circular */
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  z-index: 20;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.splash-nav:hover {
+  background: rgba(200,170,110,0.85); /* dourado */
+  color: #0f1419;
+  transform: translateY(-50%) scale(1.15); /* leve zoom */
+  box-shadow: 0 6px 20px rgba(200,170,110,0.7);
+}
+
+.splash-nav.left { left: 15px; }
+.splash-nav.right { right: 15px; }
+
+
+.splash-nav::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(200,170,110,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+.skin-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.indicator {
+  width: 12px;
+  height: 12px;
+  background: rgba(200,170,110,0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.indicator.active {
+  background: #c8aa6e;
+  transform: scale(1.2);
+}
+.indicator:hover {
+  background: #e0c98c;
+}
 
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 1024px) {
@@ -320,4 +387,18 @@ button:hover { transform:translateY(-2px); box-shadow:0 0 15px rgba(200,170,110,
   .champion-title-overlay h2 { font-size: 1rem; }
   .hero-text { text-align: center; }
   .hero-container { flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+}
+
+@media (max-width: 768px) {
+  .splash-nav {
+    background: rgba(200,170,110,0.15) !important; /* sempre transparente */
+    color: rgba(200,170,110,0.15) !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .splash-nav:hover {
+    background: rgba(200,170,110,0.15) !important; /* sem dourado no hover */
+    color: rgba(200,170,110,0.15) !important;
+    transform: translateY(-50%) scale(1) !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+  }
 }
