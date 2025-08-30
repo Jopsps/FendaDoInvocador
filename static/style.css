@@ -357,6 +357,16 @@ button:hover { transform:translateY(-2px); box-shadow:0 0 15px rgba(200,170,110,
 .indicator:hover {
   background: #e0c98c;
 }
+.fi-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espaço entre logo e texto */
+}
+
+.logo-img {
+  height: 40px; /* ajuste a altura que quiser */
+  width: auto;
+}
 
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 1024px) {
